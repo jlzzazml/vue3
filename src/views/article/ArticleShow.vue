@@ -1,7 +1,8 @@
 <script setup>
 import { artGetDetailService } from '@/api/article'
 import { useArticleStore } from '@/stores'
-import { ref } from 'vue'
+import { Search } from '@element-plus/icons-vue'
+import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const articleStore = useArticleStore()
@@ -21,7 +22,6 @@ const getArticleDet = async (id) => {
   } catch {
     params.value = defaultParams
   }
-  console.log(params.value)
 }
 getArticleDet(id.value)
 
@@ -47,6 +47,31 @@ const fontOptions = [
     label: '小号'
   }
 ]
+
+const input = ref('')
+const newContent = ref('')
+let timer = null
+const searchText = () => {
+  if (timer) {
+    clearTimeout(timer)
+  } else {
+    timer = setTimeout(() => {
+      newContent.value = params.value.content.replaceAll(
+        input.value,
+        `<span style="background-color:yellow">${input.value}</span>`
+      )
+    }, 2000)
+    timer = null
+  }
+}
+// 使用计算属性决定显示内容
+const displayContent = computed(() => {
+  // 如果有搜索词，且正在防抖期间，显示原内容
+  // 如果搜索完成且有高亮内容，显示高亮内容
+  return input.value
+    ? newContent.value || params.value.content
+    : params.value.content
+})
 </script>
 
 <template>
@@ -56,23 +81,34 @@ const fontOptions = [
     </template>
   </el-page-header>
   <div class="set">
-    <div class="demo-color-block">
+    <div class="demo">
       <span class="demonstration">背景颜色</span>
       <el-color-picker v-model="color1" />
     </div>
-    <el-select v-model="fontSize" placeholder="选择字号" style="width: 80px">
-      <el-option
-        v-for="item in fontOptions"
-        :key="item.value"
-        :label="item.label"
-        :value="item.value"
-      />
-    </el-select>
+    <div class="demo">
+      <span class="demonstration">字号</span>
+      <el-select v-model="fontSize" placeholder="选择字号" style="width: 80px">
+        <el-option
+          v-for="item in fontOptions"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        />
+      </el-select>
+    </div>
+    <el-input
+      v-model="input"
+      style="width: 240px"
+      placeholder="全文搜索"
+      :suffix-icon="Search"
+      clearable
+      @input="searchText"
+    />
   </div>
   <div
     class="content"
     :style="{ backgroundColor: color1, fontSize: fontSize }"
-    v-html="params.content"
+    v-html="displayContent"
   ></div>
 </template>
 
@@ -84,8 +120,9 @@ const fontOptions = [
 .set {
   width: 800px;
   margin: 10px auto;
+  padding: 0 20px;
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
   align-items: center;
   gap: 20px;
 }
@@ -97,11 +134,11 @@ const fontOptions = [
   overflow-y: auto;
   border: 2px solid rgb(79, 194, 233);
 }
-.demo-color-block {
+.demo {
   display: flex;
   align-items: center;
 }
-.demo-color-block .demonstration {
+.demonstration {
   margin-right: 16px;
 }
 </style>

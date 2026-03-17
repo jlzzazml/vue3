@@ -104,7 +104,6 @@ const articleStore = useArticleStore()
 const goToArtShow = (id) => {
   router.push('/article/show')
   articleStore.setCurrentArticle(id)
-  console.log(id)
 }
 </script>
 

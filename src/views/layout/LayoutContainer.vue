@@ -1,6 +1,6 @@
 <script setup>
 import avatar from '@/assets/default.png'
-import { useUserStore } from '@/stores'
+import { useAppearStore, useArticleStore, useUserStore } from '@/stores'
 import {
   CaretBottom,
   Crop,
@@ -17,6 +17,7 @@ import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 const userStore = useUserStore()
 const router = useRouter()
+const articleStore = useArticleStore()
 
 onMounted(() => {
   userStore.getUser()
@@ -34,19 +35,17 @@ const handleCommand = async (key) => {
     // 清除本地的数据 (token + user信息)
     userStore.removeToken()
     userStore.setUser({})
+    articleStore.setCurrentArticle('')
     router.push('/login')
   } else {
     // 跳转操作
     router.push(`/user/${key}`)
   }
 }
-const newAppearColor = ref({
-  asideColor: '#649884',
-  headerColor: '#94baa9'
-})
-const changeAppear = (newvalue) => {
-  newAppearColor.value = newvalue
-}
+
+const appearStore = useAppearStore()
+const newAppearColor = ref({})
+newAppearColor.value = appearStore.currentAppear
 </script>
 
 <template>
@@ -150,7 +149,7 @@ const changeAppear = (newvalue) => {
         </el-dropdown>
       </el-header>
       <el-main>
-        <router-view @change-appear="changeAppear"></router-view>
+        <router-view></router-view>
       </el-main>
       <el-footer>
         <div>created by JMC 2026-03</div>

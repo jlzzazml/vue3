@@ -25,7 +25,7 @@ onMounted(() => {
 <template>
   <div class="one">
     <div v-if="loading" class="avatar">加载中...</div>
-    <img v-else :src="imgUrl" class="avatar" />
+    <img v-else :src="imgUrl" class="avatar" loading="lazy" />
     <slot name="articleTitle"></slot>
     <slot name="button"></slot>
   </div>

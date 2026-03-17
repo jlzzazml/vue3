@@ -1,13 +1,12 @@
 <script setup>
-import { ref } from 'vue'
+import { useAppearStore } from '@/stores'
 
-const appearColor = ref({
-  asideColor: '#649884',
-  headerColor: '#94baa9'
-})
-const emit = defineEmits(['changeAppear'])
-const handleColorChange = () => {
-  emit('changeAppear', appearColor.value)
+const appearStore = useAppearStore()
+const resetAsideColor = () => {
+  appearStore.currentAppear.asideColor = '#649884'
+}
+const resetHeaderColor = () => {
+  appearStore.currentAppear.headerColor = '#94baa9'
 }
 </script>
 
@@ -15,18 +14,14 @@ const handleColorChange = () => {
   <page-container title="外观设置">
     <div class="content">
       <div class="demo-color-block">
-        <span class="demonstration">侧边栏背景颜色</span>
-        <el-color-picker
-          v-model="appearColor.asideColor"
-          @change="handleColorChange"
-        />
+        <span>侧边栏背景颜色</span>
+        <el-color-picker v-model="appearStore.currentAppear.asideColor" />
+        <el-button type="primary" @click="resetAsideColor">重置颜色</el-button>
       </div>
       <div class="demo-color-block">
-        <span class="demonstration">头部导航栏背景颜色</span>
-        <el-color-picker
-          v-model="appearColor.headerColor"
-          @change="handleColorChange"
-        />
+        <span>头部导航栏背景颜色</span>
+        <el-color-picker v-model="appearStore.currentAppear.headerColor" />
+        <el-button type="primary" @click="resetHeaderColor">重置颜色</el-button>
       </div>
     </div>
   </page-container>
@@ -40,8 +35,6 @@ const handleColorChange = () => {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
-}
-.demo-color-block .demonstration {
-  margin-right: 16px;
+  gap: 20px;
 }
 </style>

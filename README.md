@@ -1,35 +1,77 @@
-# Vue3-big-event-admin
+# 个人日记管理系统
 
-This template should help get you started developing with Vue 3 in Vite.
+一个后台数据管理系统，可以上传日记，管理日记。扩展了**个性化阅读、视图切换、外观自定义和文本搜索**等功能，提升用户交互体验。
 
-## Recommended IDE Setup
+## 技术栈
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+Vue3+JavaScript+Element Plus+Vite+Axios+Pina
 
-## Customize configuration
+## 运行软件和插件
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+Vscode+Vue (Official)
 
-## Project Setup
+## 代码格式化和美化插件
+
+eslint+prettier
+
+## 运行方法
 
 ```sh
 pnpm install
 ```
 
-### Compile and Hot-Reload for Development
+### 开发模式
 
 ```sh
 pnpm dev
 ```
 
-### Compile and Minify for Production
+### 生产模式
 
 ```sh
 pnpm build
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+## 核心功能
 
-```sh
-pnpm lint
-```
+### 1 登录注册页面
+
+![image-20260317161013519](README.assets/image-20260317161013519.png)
+
+### 2 日记管理页面
+
+![image-20260317161148567](README.assets/image-20260317161148567.png)
+
+可以根据日记分类、发布状态搜索对应的日记，每个日记可以继续单独的编辑、删除操作。也可以新增日记。
+
+**视图切换功能：**默认为表格视图，点击切换视图按钮，可以切换到图片视图，可以根据分页器中每页数量自适应布局，如下：
+
+![image-20260317161514438](README.assets/image-20260317161514438.png)
+
+![image-20260317162130063](README.assets/image-20260317162130063.png)
+
+再次点击切换视图，可以回到表格视图。
+
+点击编辑或新增日记会出现侧边栏。
+
+![image-20260317161814521](README.assets/image-20260317161814521.png)
+
+### 3 日记展示页面
+
+点击日记标题，可以进入日记展示模块。
+
+![image-20260317161944668](README.assets/image-20260317161944668.png)
+
+**个性化阅读功能：**可以设置日记的背景颜色、字号
+
+![image-20260317162326471](README.assets/image-20260317162326471.png)
+
+**全文搜索功能：**可以搜索日记中的文字，搜索结果会高亮显示
+
+![image-20260317162446417](README.assets/image-20260317162446417.png)
+
+### 4 外观自定义页面
+
+用户可以分别设置侧边栏背景颜色和头部导航栏背景颜色，满足个性化需求。点击重置颜色，会重置为系统默认颜色。
+
+![image-20260317162652356](README.assets/image-20260317162652356.png)
