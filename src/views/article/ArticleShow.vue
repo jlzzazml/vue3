@@ -54,15 +54,14 @@ let timer = null
 const searchText = () => {
   if (timer) {
     clearTimeout(timer)
-  } else {
-    timer = setTimeout(() => {
-      newContent.value = params.value.content.replaceAll(
-        input.value,
-        `<span style="background-color:yellow">${input.value}</span>`
-      )
-    }, 2000)
-    timer = null
   }
+  timer = setTimeout(() => {
+    newContent.value = params.value.content.replaceAll(
+      input.value,
+      `<span style="background-color:yellow">${input.value}</span>`
+    )
+    timer = null
+  }, 2000)
 }
 // 使用计算属性决定显示内容
 const displayContent = computed(() => {
